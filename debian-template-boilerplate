@@ -1,4 +1,4 @@
-while getopts h: opts; do
+twhile getopts h: opts; do
    case ${opts} in
       h) HOSTNAME=${OPTARG} ;;
    esac
@@ -13,6 +13,6 @@ ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa -y
 ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa -y
 ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa -b 521 -y
 
-sed -i 's/debian/{HOSTNAME}/g' /etc/hosts
-sed -i 's/debian/{HOSTNAME}/g' /etc/hostname
+sed -i 's/debian/{$HOSTNAME}/g' /etc/hosts
+sed -i 's/debian/{$HOSTNAME}/g' /etc/hostname
 hostnamectl set-hostname {HOSTNAME}
