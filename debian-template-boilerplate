@@ -1,4 +1,4 @@
-# curl https://raw.githubusercontent.com/miggec/proxmox-utils/refs/heads/main/debian-template-boilerplate | bash -s -- -h NEWHOSTNAME
+# curl https://raw.githubusercontent.com/miggec/proxmox-utils/refs/heads/main/debian-template-boilerplate | bash -s -- -n NEWHOSTNAME
 
 while getopts n: opts; do
    case ${opts} in
@@ -13,10 +13,10 @@ rm -f /etc/machine-id
 dbus-uuidgen --ensure=/etc/machine-id
 ln -s /etc/machine-id /var/lib/dbus/
 
-ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa -y
-ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa -y
-ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa -b 521 -y
+ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa -y -q
+ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa -y -q
+ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa -b 521 -y -q
 
-sed -i 's/$HOSTNAME/$NEWNAME/g' /etc/hosts
-sed -i 's/$HOSTNAME/$NEWNAME/g' /etc/hostname
+sed -i "s/$HOSTNAME/$NEWNAME/g" /etc/hosts
+sed -i "s/$HOSTNAME/$NEWNAME/g" /etc/hostname
 hostnamectl set-hostname "$NEWNAME"
