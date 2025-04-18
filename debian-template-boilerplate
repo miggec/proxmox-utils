@@ -1,4 +1,4 @@
-# curl https://raw.githubusercontent.com/miggec/proxmox-utils/refs/heads/main/debian-template-boilerplate | bash -s -- -n NEWHOSTNAME
+# apt update && apt install ssh curl && curl https://raw.githubusercontent.com/miggec/proxmox-utils/refs/heads/main/debian-template-boilerplate | bash -s -- -n NEWHOSTNAME
 
 while getopts n: opts; do
    case ${opts} in
