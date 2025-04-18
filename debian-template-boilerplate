@@ -1,12 +1,12 @@
-while getopts h: opts; do
+# curl https://raw.githubusercontent.com/miggec/proxmox-utils/refs/heads/main/debian-template-boilerplate | bash -s -- -h NEWHOSTNAME
+
+while getopts n: opts; do
    case ${opts} in
-      h) NEWNAME=${OPTARG} ;;
+      n) NEWNAME=${OPTARG} ;;
    esac
 done
 
-echo $NEWNAME
-
-exit 0
+echo "Changing hostname from $HOSTNAME to $NEWNAME"
 
 rm -f /var/lib/dbus/machine-id
 rm -f /etc/machine-id
@@ -17,6 +17,6 @@ ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa -y
 ssh-keygen -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa -y
 ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa -b 521 -y
 
-sed -i 's/debian/$NEWNAME/g' /etc/hosts
-sed -i 's/debian/$NEWNAME/g' /etc/hostname
+sed -i 's/$HOSTNAME/$NEWNAME/g' /etc/hosts
+sed -i 's/$HOSTNAME/$NEWNAME/g' /etc/hostname
 hostnamectl set-hostname "$NEWNAME"
